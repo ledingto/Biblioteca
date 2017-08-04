@@ -7,7 +7,7 @@ public class Main {
 
         biblioteca.printWelcomeCustomer();
         ArrayList<Book> books = new ArrayList<>();
-        books.add(new Book("Book1"));
+        books.add(new Book("Book1", 0, "John Doe"));
         biblioteca.printListOfBooks(books);
     }
 }

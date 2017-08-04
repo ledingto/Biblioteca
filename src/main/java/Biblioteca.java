@@ -17,7 +17,7 @@ public class Biblioteca {
 
     public void printListOfBooks(ArrayList<Book> books) {
         for (Book eachBook : books) {
-            printStream.println(eachBook.getTitle());
+            printStream.println(eachBook.toString());
         }
     }
 }

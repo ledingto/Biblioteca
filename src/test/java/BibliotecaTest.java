@@ -14,8 +14,8 @@ public class BibliotecaTest {
     // so that I feel welcome and know that Biblioteca is available.
     public void shouldSeeWelcomeMessageWhenApplicationStarted() throws Exception {
         PrintStream printStream = mock(PrintStream.class);
-        Biblioteca printer = new Biblioteca(printStream);
-        printer.printWelcomeCustomer();
+        Biblioteca biblioteca = new Biblioteca(printStream);
+        biblioteca.printWelcomeCustomer();
         verify(printStream).println("Welcome to the Biblioteca!");
     }
 
@@ -23,16 +23,24 @@ public class BibliotecaTest {
     // so that I can browse for books I might want to check-out. Assume that there is a pre-existing list of books.
     // You don't need to support adding or removing books from the library.
     @Test
-    public void shouldSeeListOfBooks() throws Exception {
+    public void shouldSeeListOfBookTitles() throws Exception {
         PrintStream printStream = mock(PrintStream.class);
-        Biblioteca printer = new Biblioteca(printStream);
+        Biblioteca biblioteca = new Biblioteca(printStream);
 
         ArrayList<Book> books = new ArrayList<>();
-        books.add(new Book("Book1"));
-        books.add(new Book("Book2"));
+        books.add(new Book("Book1", 0, "John Doe"));
+        books.add(new Book("Book2",0, "John Doe"));
 
-        printer.printListOfBooks(books);
+        biblioteca.printListOfBooks(books);
         verify(printStream, times(1)).println("Book1");
         verify(printStream, times(1)).println("Book2");
+    }
+
+    @Test
+    public void shouldListAllInfoForABook() throws Exception {
+        Book book = new Book ("Book", 0,"Author");
+        book.toString();
+
+        //verify with mock printstream
     }
 }
