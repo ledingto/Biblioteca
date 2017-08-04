@@ -15,6 +15,7 @@ public class BibliotecaPrinterTest {
         BibliotecaPrinter printer = new BibliotecaPrinter(printStream);
         printer.printWelcomeCustomer();
         verify(printStream).println("Welcome to the Biblioteca!");
-
     }
+
+
 }
