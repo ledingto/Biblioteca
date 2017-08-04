@@ -1,16 +1,23 @@
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Biblioteca {
 
-    static BibliotecaPrinter printer;
-    static ArrayList<Book> books;
+    private PrintStream printStream;
+    private ArrayList<Book> books;
 
-    public static void main(String[] args) {
-        printer = new BibliotecaPrinter(System.out);
-        printer.printWelcomeCustomer();
-
+    public Biblioteca(PrintStream printStream) {
+        this.printStream = printStream;
         books = new ArrayList<>();
-        books.add(new Book("Book1"));
-        printer.printListOfBooks(books);
+    }
+
+    public void printWelcomeCustomer() {
+        printStream.println("Welcome to the Biblioteca!");
+    }
+
+    public void printListOfBooks(ArrayList<Book> books) {
+        for (Book eachBook : books) {
+            printStream.println(eachBook.getTitle());
+        }
     }
 }
