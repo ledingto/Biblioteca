@@ -1,4 +1,5 @@
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 public class BibliotecaPrinter {
 
@@ -11,5 +12,12 @@ public class BibliotecaPrinter {
 
     public void printWelcomeCustomer() {
         printStream.println("Welcome to the Biblioteca!");
+    }
+
+    public void printListOfBooks(ArrayList<Book> books) {
+        for (Book eachBook : books) {
+            printStream.println(eachBook.getTitle());
+        }
+
     }
 }
