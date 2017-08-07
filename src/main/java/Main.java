@@ -7,14 +7,14 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Biblioteca biblioteca = new Biblioteca(System.out);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Biblioteca biblioteca = new Biblioteca(System.out, reader);
 
         biblioteca.printWelcomeCustomer();
-        ArrayList<Book> books = new ArrayList<>();
-        books.add(new Book("Book1", "0", "John Doe"));
+        biblioteca.addBook(new Book("Book1", "0", "John Doe"));
 
         biblioteca.listMenuOptions();
-        biblioteca.getUserInput(reader);
+        biblioteca.selectOption();
+
     }
 }

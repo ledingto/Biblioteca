@@ -1,5 +1,4 @@
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -13,13 +12,16 @@ import static org.mockito.Mockito.*;
 public class BibliotecaTest {
 
     PrintStream printStream;
+    BufferedReader reader;
     Biblioteca biblioteca;
     ArrayList<Book> books;
+
 
     @Before
     public void setUp() throws Exception {
         printStream = mock(PrintStream.class);
-        biblioteca = new Biblioteca(printStream);
+        reader = mock(BufferedReader.class);
+        biblioteca = new Biblioteca(printStream, reader);
         books = new ArrayList<>();
     }
 
@@ -66,38 +68,35 @@ public class BibliotecaTest {
     }
 
     @Test
+    public void shouldAddBookWhenAddBookisCalled() {
+        Book bookToAdd = new Book("Harry Potter", "2000", "JK Rowling");
+        int originalSize = biblioteca.getNumberOfBooks();
+        biblioteca.addBook(bookToAdd);
+        assertEquals(1, biblioteca.getNumberOfBooks()-originalSize);
+
+    }
+
+    @Test
+    public void shouldDisplayInvalidOptionMessage() throws Exception {
+        when(reader.readLine()).thenReturn("wrong!");
+
+        biblioteca.selectOption();
+
+        verify(printStream).println("Invalid Option.");
+    }
+
+    @Test
     public void whenUserChoosesListBooksOptionShouldPrintListOfBooks() throws IOException {
-        BufferedReader br = mock(BufferedReader.class);
-        when(br.readLine()).thenReturn("1");
-        String userInput = biblioteca.getUserInput(br);
+        when(reader.readLine()).thenReturn("1");
 
         biblioteca.addBook(new Book("Book1", "1", "Author1"));
         biblioteca.addBook(new Book("Book2", "7", "Author2"));
         biblioteca.addBook(new Book("Book3", "9", "Author3"));
 
-        biblioteca.selectOption(userInput);
+        biblioteca.selectOption();
 
-        verify(printStream, times(1)).println("Book1\t\t1\t\tAuthor1");
-        verify(printStream, times(1)).println("Book2\t\t7\t\tAuthor2");
-        verify(printStream, times(1)).println("Book3\t\t9\t\tAuthor3");
+        verify(printStream).println("Book1\t\t1\t\tAuthor1");
+        verify(printStream).println("Book2\t\t7\t\tAuthor2");
+        verify(printStream).println("Book3\t\t9\t\tAuthor3");
     }
-
-    @Test
-    public void shouldAddBookWhenAddBookisCalled() {
-        Book bookToAdd = new Book("Harry Potter", "2000", "JK Rowling");
-        int originalSize = biblioteca.booksSize();
-        biblioteca.addBook(bookToAdd);
-        assertEquals(1, biblioteca.booksSize()-originalSize);
-
-    }
-
-    @Test
-    public void shouldVerifyUserInput() throws IOException {
-        BufferedReader br = mock(BufferedReader.class);
-        when(br.readLine()).thenReturn("1");
-
-        String userInput = biblioteca.getUserInput(br);
-        assertEquals("1",userInput);
-    }
-
 }
