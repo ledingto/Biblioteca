@@ -10,8 +10,4 @@ import static org.mockito.Mockito.verify;
 
 public class MainTest {
 
-    @Test
-    public void shouldSeeWelcomeMessageWhenApplicationStarts() throws Exception {
-
-    }
 }

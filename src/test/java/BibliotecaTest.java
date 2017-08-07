@@ -1,6 +1,9 @@
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -61,4 +64,20 @@ public class BibliotecaTest {
         verify(printStream, times(1)).println("Book2\t\t7\t\tAuthor2");
         verify(printStream, times(1)).println("Book3\t\t9\t\tAuthor3");
     }
+
+    @Ignore
+    @Test
+    public void shouldPrintListOfBooksWhenUserInputIs1() {
+
+    }
+
+    @Test
+    public void shouldVerifyUserInput() throws IOException {
+        BufferedReader br = mock(BufferedReader.class);
+        when(br.readLine()).thenReturn("1");
+
+        String userInput = biblioteca.getUserInput(br);
+        assertEquals("1",userInput);
+    }
+
 }
