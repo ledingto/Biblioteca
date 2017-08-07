@@ -5,19 +5,19 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class BibliotecaTest {
 
     PrintStream printStream;
     Biblioteca biblioteca;
+    ArrayList<Book> books;
 
     @Before
     public void setUp() throws Exception {
         printStream = mock(PrintStream.class);
         biblioteca = new Biblioteca(printStream);
+        books = new ArrayList<>();
     }
 
     @Test
@@ -34,8 +34,6 @@ public class BibliotecaTest {
     // You don't need to support adding or removing books from the library.
     @Test
     public void shouldSeeListOfBookTitles() throws Exception {
-
-        ArrayList<Book> books = new ArrayList<>();
         books.add(new Book("Book1", "0", "John Doe"));
         books.add(new Book("Book2","0", "John Doe"));
 
@@ -48,5 +46,19 @@ public class BibliotecaTest {
     public void shouldListAllInfoForABook() throws Exception {
         Book book = new Book ("Book", "0","Author");
         assertEquals(book.toString(), "Book\t\t0\t\tAuthor");
+    }
+
+    @Test
+    public void shouldListAllInfoForMultipleBooks() throws Exception {
+
+        books.add(new Book("Book1", "1", "Author1"));
+        books.add(new Book("Book2", "7", "Author2"));
+        books.add(new Book("Book3", "9", "Author3"));
+
+        biblioteca.printListOfBooks(books);
+
+        verify(printStream, times(1)).println("Book1\t\t1\t\tAuthor1");
+        verify(printStream, times(1)).println("Book2\t\t7\t\tAuthor2");
+        verify(printStream, times(1)).println("Book3\t\t9\t\tAuthor3");
     }
 }
