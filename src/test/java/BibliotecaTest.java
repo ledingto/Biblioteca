@@ -41,8 +41,8 @@ public class BibliotecaTest {
         books.add(new Book("Book2","0", "John Doe"));
 
         biblioteca.printListOfBooks(books);
-        verify(printStream, times(1)).println("Book1");
-        verify(printStream, times(1)).println("Book2");
+        verify(printStream, times(1)).println("Book1\t\t0\t\tJohn Doe");
+        verify(printStream, times(1)).println("Book2\t\t0\t\tJohn Doe");
     }
 
     @Test
@@ -65,9 +65,29 @@ public class BibliotecaTest {
         verify(printStream, times(1)).println("Book3\t\t9\t\tAuthor3");
     }
 
-    @Ignore
     @Test
-    public void shouldPrintListOfBooksWhenUserInputIs1() {
+    public void whenUserChoosesListBooksOptionShouldPrintListOfBooks() throws IOException {
+        BufferedReader br = mock(BufferedReader.class);
+        when(br.readLine()).thenReturn("1");
+        String userInput = biblioteca.getUserInput(br);
+
+        biblioteca.addBook(new Book("Book1", "1", "Author1"));
+        biblioteca.addBook(new Book("Book2", "7", "Author2"));
+        biblioteca.addBook(new Book("Book3", "9", "Author3"));
+
+        biblioteca.selectOption(userInput);
+
+        verify(printStream, times(1)).println("Book1\t\t1\t\tAuthor1");
+        verify(printStream, times(1)).println("Book2\t\t7\t\tAuthor2");
+        verify(printStream, times(1)).println("Book3\t\t9\t\tAuthor3");
+    }
+
+    @Test
+    public void shouldAddBookWhenAddBookisCalled() {
+        Book bookToAdd = new Book("Harry Potter", "2000", "JK Rowling");
+        int originalSize = biblioteca.booksSize();
+        biblioteca.addBook(bookToAdd);
+        assertEquals(1, biblioteca.booksSize()-originalSize);
 
     }
 

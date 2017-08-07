@@ -34,7 +34,20 @@ public class Biblioteca {
     }
 
     public String getUserInput(BufferedReader reader) throws IOException {
+        printStream.println("Please enter the option number:");
         String userInput = reader.readLine();
         return userInput;
+    }
+
+    public void selectOption(String userInput) {
+        printListOfBooks(books);
+    }
+
+    public void addBook(Book bookToAdd) {
+        books.add(bookToAdd);
+    }
+
+    public int booksSize() {
+        return books.size();
     }
 }

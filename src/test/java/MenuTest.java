@@ -22,7 +22,7 @@ public class MenuTest {
     @Test
     public void shouldShowMenuOptions() {
         biblioteca.listMenuOptions();
-        verify(printStream).println("List books");
+        verify(printStream).println("1) List books");
     }
 
 }

@@ -14,7 +14,8 @@ public class Menu {
 
     public void printOptions() {
         for (String option: options) {
-            printStream.println(option);
+            int optionNumber = options.indexOf(option)+1;
+            printStream.println(optionNumber + ") " + option);
         }
     }
 }
