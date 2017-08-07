@@ -1,10 +1,10 @@
 public class Book {
 
     private String title;
-    private int yearPublished;
+    private String yearPublished;
     private String author;
 
-    public Book(String title, int yearPublished, String author) {
+    public Book(String title, String yearPublished, String author) {
         this.title = title;
         this.author = author;
         this.yearPublished = yearPublished;
@@ -13,7 +13,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return title;
+        return title + "\t\t" + yearPublished + "\t\t" + author;
     }
 
 }

@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
@@ -9,12 +10,21 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class BibliotecaTest {
+
+    PrintStream printStream;
+    Biblioteca biblioteca;
+
+    @Before
+    public void setUp() throws Exception {
+        printStream = mock(PrintStream.class);
+        biblioteca = new Biblioteca(printStream);
+    }
+
     @Test
     // Welcome Message  - As a customer, I would like to see a welcome message when I start the application,
     // so that I feel welcome and know that Biblioteca is available.
     public void shouldSeeWelcomeMessageWhenApplicationStarted() throws Exception {
-        PrintStream printStream = mock(PrintStream.class);
-        Biblioteca biblioteca = new Biblioteca(printStream);
+
         biblioteca.printWelcomeCustomer();
         verify(printStream).println("Welcome to the Biblioteca!");
     }
@@ -24,12 +34,10 @@ public class BibliotecaTest {
     // You don't need to support adding or removing books from the library.
     @Test
     public void shouldSeeListOfBookTitles() throws Exception {
-        PrintStream printStream = mock(PrintStream.class);
-        Biblioteca biblioteca = new Biblioteca(printStream);
 
         ArrayList<Book> books = new ArrayList<>();
-        books.add(new Book("Book1", 0, "John Doe"));
-        books.add(new Book("Book2",0, "John Doe"));
+        books.add(new Book("Book1", "0", "John Doe"));
+        books.add(new Book("Book2","0", "John Doe"));
 
         biblioteca.printListOfBooks(books);
         verify(printStream, times(1)).println("Book1");
@@ -38,9 +46,7 @@ public class BibliotecaTest {
 
     @Test
     public void shouldListAllInfoForABook() throws Exception {
-        Book book = new Book ("Book", 0,"Author");
-        book.toString();
-
-        //verify with mock printstream
+        Book book = new Book ("Book", "0","Author");
+        assertEquals(book.toString(), "Book\t\t0\t\tAuthor");
     }
 }
